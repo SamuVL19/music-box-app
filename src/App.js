@@ -4,7 +4,8 @@ function App() {
   const playlist = [
     { id: 1, title: 'Amazing', artist: 'Rex Orange County' },
     { id: 2, title: 'THE SHADE', artist: 'Rex Orange County' },
-    { id: 3, title: 'Sunflower', artist: 'Rex Orange County' }
+    { id: 3, title: 'Sunflower', artist: 'Rex Orange County' },
+    { id: 4, title: 'Untitled', artist: 'Rex Orange County' }
   ];
 
   return (
