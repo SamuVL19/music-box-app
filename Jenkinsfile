@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/<tu-usuario>/music-box-app.git'
+                git branch: 'main', url: 'https://github.com/SamuVL19/music-box-app.git'
             }
         }
 
