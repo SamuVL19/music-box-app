@@ -5,16 +5,16 @@ pipeline {
         nodejs 'Node_24'
         sonarScanner 'MySonarQube'
     }
+
     environment {
-    SONAR_PROJECT_KEY = 'music-box-app'
-    SONAR_PROJECT_NAME = 'Music Box App'
+        SONAR_PROJECT_KEY = 'music-box-app'
+        SONAR_PROJECT_NAME = 'Music Box App'
     }
 
-    
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/SamuVL19/music-box-app.git'
+                checkout scm
             }
         }
 
@@ -26,26 +26,8 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-            withSonarQubeEnv('SonarQube') {
-                sh '''
-                sonar-scanner \
-                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                -Dsonar.projectName=${SONAR_PROJECT_NAME} \
-                -Dsonar.sources=src \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=${SONAR_AUTH_TOKEN} \
-                -Dsonar.javascript.node=${NODEJS_HOME}/bin/node \
-                -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-                '''
-                }
-            }
-        }
-
         stage('Pruebas Unitarias') {
             steps {
-                // Ejecuta Jest generando salida JUnit en junit.xml
                 sh 'npm test -- --watchAll=false --ci --reporters=default --reporters=jest-junit'
             }
             post {
@@ -68,17 +50,13 @@ pipeline {
 
     post {
         always {
+            script {
+                def qg = waitForQualityGate()
+                if (qg.status != 'OK') {
+                    error "Calidad no aprobada: ${qg.status}"
+                }
+            }
             echo "Ejecución finalizada con estado: ${currentBuild.result}"
         }
-
-        always {// Agregar notificación de calidad de SonarQube
-        script {
-            def qg = waitForQualityGate()
-                if (qg.status != 'OK') {
-                error "Calidad no aprobada: ${qg.status}"
-                }
-        }
-
-
     }
 }
