@@ -3,8 +3,14 @@ pipeline {
 
     tools {
         nodejs 'Node_24'
+        sonarScanner 'MySonarQube'
+    }
+    environment {
+    SONAR_PROJECT_KEY = 'music-box-app'
+    SONAR_PROJECT_NAME = 'Music Box App'
     }
 
+    
     stages {
         stage('Checkout') {
             steps {
@@ -16,6 +22,24 @@ pipeline {
             steps {
                 sh 'npm install'
                 sh 'npm run build'
+                sh 'npm run test:coverage'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+            withSonarQubeEnv('SonarQube') {
+                sh '''
+                sonar-scanner \
+                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                -Dsonar.projectName=${SONAR_PROJECT_NAME} \
+                -Dsonar.sources=src \
+                -Dsonar.host.url=http://localhost:9000 \
+                -Dsonar.login=${SONAR_AUTH_TOKEN} \
+                -Dsonar.javascript.node=${NODEJS_HOME}/bin/node \
+                -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+                '''
+                }
             }
         }
 
@@ -46,5 +70,15 @@ pipeline {
         always {
             echo "Ejecución finalizada con estado: ${currentBuild.result}"
         }
+
+        always {// Agregar notificación de calidad de SonarQube
+        script {
+            def qg = waitForQualityGate()
+                if (qg.status != 'OK') {
+                error "Calidad no aprobada: ${qg.status}"
+                }
+        }
+
+
     }
 }
