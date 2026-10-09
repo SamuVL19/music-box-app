@@ -19,20 +19,16 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                script {
-                    def scannerHome = tool name: 'MySonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('SonarQube') {
-                        sh """
-                        ${scannerHome}/bin/sonar-scanner \
-                          -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                          -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
-                          -Dsonar.sources=src \
-                          -Dsonar.host.url=http://localhost:9000 \
-                          -Dsonar.login=${SONAR_AUTH_TOKEN} \
-                          -Dsonar.javascript.node=${NODEJS_HOME}/bin/node \
-                          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-                        """
-                    }
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                    /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/MySonarQube/bin/sonar-scanner \
+                    -Dsonar.projectKey=music-box-app \
+                    -Dsonar.projectName="Music Box App" \
+                    -Dsonar.sources=src \
+                    -Dsonar.host.url=http://sonarqube:9000 \
+                    -Dsonar.javascript.node=/var/jenkins_home/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/Node_24/bin/node \
+                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+                    '''
                 }
             }
         }
