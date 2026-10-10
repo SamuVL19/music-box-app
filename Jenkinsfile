@@ -44,7 +44,7 @@ pipeline {
         stage('Security Scan with Snyk') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'Snyk', variable: 'SNYK_TOKEN')]) {
                         try {
                             // 1. Instalar Snyk CLI y conversor a HTML
                             sh 'npm install -g snyk snyk-to-html'
