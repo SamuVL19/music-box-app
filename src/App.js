@@ -5,7 +5,8 @@ function App() {
     { id: 1, title: 'Amazing', artist: 'Rex Orange County' },
     { id: 2, title: 'THE SHADE', artist: 'Rex Orange County' },
     { id: 3, title: 'Sunflower', artist: 'Rex Orange County' },
-    { id: 4, title: 'Untitled', artist: 'Rex Orange County' }
+    { id: 4, title: 'Untitled', artist: 'Rex Orange County' },
+    { id: 5, title: 'Song 5', artist: 'Artist 5' }
   ];
 
   return (
