@@ -7,6 +7,14 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
   },
+  "overrides": {
+    "nth-check": "^2.0.1",
+    "postcss": "^8.5.18",
+    "postcss-selector-parser": "^7.1.6",
+    "serialize-javascript": "^7.0.5",
+    "underscore": "^1.13.8",
+    "webpack-dev-server": "^5.2.1"
+  },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

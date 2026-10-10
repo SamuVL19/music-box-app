@@ -1,0 +1,40 @@
+# Dependencias (se instalan con npm install en cada entorno)
+/node_modules
+/.pnp
+.pnp.js
+
+# Salidas de compilación y producción (se generan en el pipeline)
+/build
+/dist
+/prod
+
+# Cobertura de pruebas y resultados de tests
+/coverage
+junit.xml
+junit-*.xml
+
+# Reportes temporales y archivos de análisis
+snyk_results.json
+snyk_report.html
+snyk-sonar.json
+/.scannerwork
+.sonar
+
+# Variables de entorno y secretos locales
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# Logs de depuración
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos del sistema operativo y configuraciones de editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
