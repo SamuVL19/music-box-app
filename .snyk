@@ -1,0 +1,23 @@
+# Snyk (https://snyk.io) policy file
+version: v1.25.0
+ignore:
+  'SNYK-JS-REACTDEVUTILS-17890708':
+    - '*':
+        reason: 'Utilidad de desarrollo local de CRA sin parche disponible upstream'
+        expires: 2027-01-01T00:00:00.000Z
+  'SNYK-JS-URIJS-19963963':
+    - '*':
+        reason: 'Dependencia de babel-loader/schema-utils sin parche upstream'
+        expires: 2027-01-01T00:00:00.000Z
+  'SNYK-JS-DEEPMERGE-19964053':
+    - '*':
+        reason: 'Dependencia de build de SVGR/Jest sin parche en su versión legacy'
+        expires: 2027-01-01T00:00:00.000Z
+  'SNYK-JS-CSSOM-19964070':
+    - '*':
+        reason: 'Entorno de pruebas unitarias JSDOM sin parche disponible'
+        expires: 2027-01-01T00:00:00.000Z
+  'SNYK-JS-BRACES-19963945':
+    - '*':
+        reason: 'Herramienta de testing Jest/babel sin parche disponible en Create React App'
+        expires: 2027-01-01T00:00:00.000Z
